@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { cn } from "../lib/cn";
 
 interface VideoSceneProps {
@@ -16,16 +16,24 @@ const Video = ({ src, className, videoProps }: VideoSceneProps) => {
     }
   }, []);
 
+  // Memoize the source to prevent unnecessary re-renders
+  const sourceElement = useMemo(
+    () => <source src={src} type="video/mp4" />,
+    [src]
+  );
+
   return (
     <video
       ref={videoRef}
+      key={src} // Prevent re-renders when src changes
       className={cn("size-full object-cover", className)}
       playsInline
       autoPlay
       muted
+      preload="metadata" // Control loading behavior
       {...videoProps}
     >
-      <source src={src} type="video/mp4" />
+      {sourceElement}
     </video>
   );
 };

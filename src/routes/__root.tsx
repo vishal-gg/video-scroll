@@ -25,6 +25,13 @@ const RootLayout = () => {
         >
           Alea
         </Link>
+        <Link
+          className="px-2 py-1"
+          to="/test"
+          activeProps={{ className: `${activeClassName}` }}
+        >
+          Truck
+        </Link>
       </div>
       <Outlet />
       <TanStackRouterDevtools />
